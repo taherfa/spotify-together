@@ -1,30 +1,19 @@
-const express = require('express')
 const SpotifyWebAPINode = require('spotify-web-api-node')
+const express = require('express')
+const cors = require("cors")
 
 const app = express()
+app.use(cors())
 
 // This file is copied from: https://github.com/thelinmichael/spotify-web-api-node/blob/master/examples/tutorial/00-get-access-token.js
 
 const scopes = [
-  'ugc-image-upload',
-  'user-read-playback-state',
-  'user-modify-playback-state',
-  'user-read-currently-playing',
-  'streaming',
-  'app-remote-control',
-  'user-read-email',
-  'user-read-private',
+  'user-top-read',
+  'user-library-read',
+  'playlist-read-private',
   'playlist-read-collaborative',
   'playlist-modify-public',
-  'playlist-read-private',
   'playlist-modify-private',
-  'user-library-modify',
-  'user-library-read',
-  'user-top-read',
-  'user-read-playback-position',
-  'user-read-recently-played',
-  'user-follow-read',
-  'user-follow-modify',
 ]
 
 // credentials are optional
@@ -35,6 +24,8 @@ var spotifyApi = new SpotifyWebAPINode({
 })
 
 app.get('/login', (req, res) => {
+  console.log("testing login endpoint - server")
+
   res.redirect(spotifyApi.createAuthorizeURL(scopes))
 })
 
@@ -83,5 +74,5 @@ app.get('/callback', (req, res) => {
 })
 
 app.listen(3001, () => {
-  console.log('Server live on port 3000')
+  console.log('Server live on port 3001')
 })
